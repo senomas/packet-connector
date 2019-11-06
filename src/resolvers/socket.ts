@@ -1,27 +1,35 @@
 import { Arg, Int, Query, Resolver, Mutation } from 'type-graphql';
 
-import { Message, Channel } from '../schemas/socket';
+import { Message, Channel, ChannelInput } from '../schemas/socket';
+import { channelOpen, channelClose, channelSend, channelRetrieve } from '../services/service';
 
 @Resolver()
 export class SocketResolver {
 
   @Mutation(returns => Channel)
   public async open(@Arg("target") target: string): Promise<Channel> {
-    return null;
+    return channelOpen(target);
   }
 
   @Mutation(returns => Boolean)
-  public async close(@Arg("channel") channel: Channel): Promise<Boolean> {
-    return null;
+  public async close(@Arg("channel") channel: ChannelInput): Promise<Boolean> {
+    return channelClose(channel);
   }
 
-  @Mutation(returns => Channel)
-  public async send(@Arg("target", { nullable: true }) target: string, @Arg("channel", { nullable: true }) channel: Channel, @Arg("message") message: Message): Promise<Channel> {
-    return channel;
+  @Mutation(returns => [Message])
+  public async send(
+    @Arg("channel") channel: ChannelInput,
+    @Arg("message") message: string,
+    @Arg("timeout", of => Int) timeout: number
+  ): Promise<Message[]> {
+    return channelSend(channel, message, timeout);
   }
 
-  @Query(returns => Message)
-  public async retrieve(@Arg("target", { nullable: true }) target: string, @Arg("channel", { nullable: true }) channel: Channel, @Arg("timeout", of => Int) timeout: number): Promise<Message> {
-    return null;
+  @Query(returns => [Message])
+  public async retrieve(
+    @Arg("channel") channel: ChannelInput,
+    @Arg("timeout", of => Int) timeout: number
+  ): Promise<Message[]> {
+    return channelRetrieve(channel, timeout);
   }
 }

@@ -1,8 +1,8 @@
 {
-  "name": "socket-connector",
+  "name": "packet-connector",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "https://code.senomas.com/seno/socket-connector.git",
+  "repository": "https://code.senomas.com/seno/micro-account-ql.git",
   "author": "denmaseno <agus@senomas.com>",
   "license": "MIT",
   "scripts": {

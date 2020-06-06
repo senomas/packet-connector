@@ -42,7 +42,7 @@
     "typescript": "^3.6.3"
   },
   "dependencies": {
-    "apollo-server-express": "^2.9.4",
+    "apollo-server-express": "^2.14.2",
     "bunyan": "^1.8.12",
     "express": "^4.17.1",
     "iltorb": "^2.4.3",
